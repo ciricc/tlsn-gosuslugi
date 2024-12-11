@@ -33,7 +33,7 @@
     ],
     "requests": [
         {
-            "url": "https://esia.gosuslugi.ru/esia-rs/api/public/v5/prns/1092435363?embed=(documents)",
+            "url": "https://esia.gosuslugi.ru/esia-rs/api/public/v5/prns/*?embed=(documents)",
             "method": "GET"
         }
     ]

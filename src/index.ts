@@ -44,8 +44,15 @@ export function getIdDoc() {
 
   const cookieHeader = Object.keys(cookies).map(key => `${key}=${cookies[key]}`).join('; ');
 
+  const userId = cookies['u'];
+  if (!userId) {
+    console.error("Didnt found the user identifier")
+    outputJSON(false)
+    return
+  }
+
   return outputJSON({
-    url: "https://esia.gosuslugi.ru/esia-rs/api/public/v5/prns/1092435363?embed=(documents)",
+    url: `https://esia.gosuslugi.ru/esia-rs/api/public/v5/prns/${userId}?embed=(documents)`,
     method: "GET",
     headers: {
       'cookie': cookieHeader,
@@ -55,6 +62,7 @@ export function getIdDoc() {
       "accept-language": "en",
       "accept": "application/json",
       "accept-charset": "utf-8",
+      "accept-encoding": "identity",
     },
     secretHeaders: [
       'cookie: ' + cookieHeader
@@ -64,14 +72,9 @@ export function getIdDoc() {
 
 export function parseEsiaResponse() {
   const bodyString = Host.inputString();
-
-  console.log("Goti body stirng", bodyString)
   const idDoc = JSON.parse(bodyString);
 
-  console.log("Document got", JSON.stringify(idDoc));
-
   const reveals = [
-    // Need reveal only year of birth
     `"birthDate":"${idDoc.birthDate}"`,
     `"firstName":"${idDoc.firstName}"`,
   ];
@@ -99,8 +102,6 @@ export function parseEsiaResponse() {
     return a.start - b.start
   })
 
-  console.log("Reveal ranges", JSON.stringify(revealRanges))
-
   // All strings not in the reveal ranges are hidden
   // and pushed to the secretResps
   // Just need to get FULL string in not ranges
@@ -119,7 +120,6 @@ export function parseEsiaResponse() {
   }
 
 
-  console.log("Secret responses", JSON.stringify(secretResps));
   secretResps = secretResps.filter(v => !!v);
   outputJSON(secretResps);
 }
