@@ -64,14 +64,9 @@ export function getIdDoc() {
 
 export function parseEsiaResponse() {
   const bodyString = Host.inputString();
-
-  console.log("Goti body stirng", bodyString)
   const idDoc = JSON.parse(bodyString);
 
-  console.log("Document got", JSON.stringify(idDoc));
-
   const reveals = [
-    // Need reveal only year of birth
     `"birthDate":"${idDoc.birthDate}"`,
     `"firstName":"${idDoc.firstName}"`,
   ];
@@ -99,8 +94,6 @@ export function parseEsiaResponse() {
     return a.start - b.start
   })
 
-  console.log("Reveal ranges", JSON.stringify(revealRanges))
-
   // All strings not in the reveal ranges are hidden
   // and pushed to the secretResps
   // Just need to get FULL string in not ranges
@@ -119,7 +112,6 @@ export function parseEsiaResponse() {
   }
 
 
-  console.log("Secret responses", JSON.stringify(secretResps));
   secretResps = secretResps.filter(v => !!v);
   outputJSON(secretResps);
 }
