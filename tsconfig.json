@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "dom"
+        ],
+        "types": [
+            "@extism/js-pdk"
+        ],
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

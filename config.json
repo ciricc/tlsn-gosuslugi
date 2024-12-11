@@ -1,0 +1,40 @@
+{
+    "title": "Госуслуги идентификатор",
+    "description": "Подверждение даты рождения и имени как в паспорте",
+    "steps": [
+        {
+            "title": "Авторизация",
+            "cta": "войдите в свой аккаунт на сайте",
+            "action": "start"
+        },
+        {
+            "title": "Идентификация",
+            "cta": "Ваши данные защищены недежным TLS соединением",
+            "action": "getIdDoc"
+        },
+        {
+            "title": "Безопасное доказательство",
+            "cta": "Создаем зашифрованное доказательство ваших данных",
+            "action": "notarizeIdDoc",
+            "prover": true
+        }
+    ],
+    "hostFunctions": [
+        "redirect",
+        "notarize"
+    ],
+    "cookies": [
+        "gosuslugi.ru",
+        "esia.gosuslugi.ru"
+    ],
+    "headers": [
+        "gosuslugi.ru",
+        "esia.gosuslugi.ru"
+    ],
+    "requests": [
+        {
+            "url": "https://esia.gosuslugi.ru/esia-rs/api/public/v5/prns/1092435363?embed=(documents)",
+            "method": "GET"
+        }
+    ]
+}
